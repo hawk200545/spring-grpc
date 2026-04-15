@@ -30,7 +30,7 @@ public class EmployeeEntity {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
-    protected EmployeeEntity() {
+    public EmployeeEntity() {
     }
 
     public Integer getId() {

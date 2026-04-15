@@ -17,17 +17,31 @@ message EmployeeByIdReq {
 }
 
 message EmployeeResponse{
-  Employees employee=1;
+  Employee employee=1;
 }
 
 message Employees {
   repeated Employee employees = 1;
 }
+message BulkEmployeeCreationResponse {
+  int32 createdEmployees = 1;
+}
+
+message EmployeeCreationResponse{
+  int32 employeeId=1;
+}
 
 message Empty {}
 
 service EmployeeService {
-  
+  //Unary operations
   rpc getEmployeeById(EmployeeByIdReq) returns (EmployeeResponse);
-  rpc getAllEmployee(Empty) returns (EmployeeResponse);
-}
+  rpc getAllEmployee(Empty) returns (Employees);
+  // Server Stream
+  rpc subscribeEmployeeById(EmployeeByIdReq) returns (stream EmployeeResponse);
+  // Client stream
+  rpc bulkEmployeeCreation(stream Employee) returns (BulkEmployeeCreationResponse);
+  // Bidirectional stream
+  rpc liveEmployeeCreation(stream Employee) returns (stream EmployeeCreationResponse);
+ }
+
