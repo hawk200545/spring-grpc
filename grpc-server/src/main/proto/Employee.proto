@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option java_package = "com.hawk.grpc_server.proto";
+option java_outer_classname = "EmployeeProto";
+option java_multiple_files = true;
+
+package com.example.hawk.grpc.employee;
+
+message Employee {
+  int32 id = 1;
+  string name = 2;
+  int32 age = 4;
+}
+
+message EmployeeByIdReq {
+  int32 id = 1;
+}
+
+message EmployeeResponse{
+  Employees employee=1;
+}
+
+message Employees {
+  repeated Employee employees = 1;
+}
+
+message Empty {}
+
+service EmployeeService {
+  
+  rpc getEmployeeById(EmployeeByIdReq) returns (EmployeeResponse);
+  rpc getAllEmployee(Empty) returns (EmployeeResponse);
+}
